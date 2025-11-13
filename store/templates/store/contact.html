@@ -1,0 +1,154 @@
+{% extends 'store/base.html'%}
+
+{% block title %}Contact | {% endblock %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto</title>
+    <style>
+        /* === ESTILOS BÁSICOS === */
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 80px auto;
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        p {
+            text-align: center;
+            color: #555;
+            margin-bottom: 30px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        label {
+            font-weight: bold;
+            color: #333;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        input:focus, textarea:focus {
+            border-color: #007BFF;
+            outline: none;
+        }
+
+        button {
+            background: #007BFF;
+            color: white;
+            border: none;
+            padding: 14px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #0056b3;
+        }
+
+        .success {
+            color: green;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .error {
+            color: red;
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Contáctanos</h1>
+        <p>¿Tienes alguna pregunta? Envíanos un mensaje y te responderemos lo antes posible.</p>
+
+        <form id="contactForm">
+            <div>
+                <label for="nombre">Nombre</label>
+                <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required>
+            </div>
+
+            <div>
+                <label for="correo">Correo electrónico</label>
+                <input type="email" id="correo" name="correo" placeholder="tu@ejemplo.com" required>
+            </div>
+
+            <div>
+                <label for="mensaje">Mensaje</label>
+                <textarea id="mensaje" name="mensaje" rows="5" placeholder="Escribe tu mensaje..." required></textarea>
+            </div>
+
+            <button type="submit">Enviar mensaje</button>
+        </form>
+
+        <div id="mensajeRespuesta"></div>
+    </div>
+
+    <script>
+        // === VALIDACIÓN Y SIMULACIÓN DE ENVÍO ===
+        document.getElementById("contactForm").addEventListener("submit", function(e) {
+            e.preventDefault(); // Evita recargar la página
+
+            const nombre = document.getElementById("nombre").value.trim();
+            const correo = document.getElementById("correo").value.trim();
+            const mensaje = document.getElementById("mensaje").value.trim();
+            const respuesta = document.getElementById("mensajeRespuesta");
+
+            // Validar campos
+            if (!nombre || !correo || !mensaje) {
+                respuesta.innerHTML = '<p class="error">Por favor, completa todos los campos.</p>';
+                return;
+            }
+
+            // Validar formato de correo
+            const regexCorreo = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!regexCorreo.test(correo)) {
+                respuesta.innerHTML = '<p class="error">Por favor, introduce un correo válido.</p>';
+                return;
+            }
+
+            // Simula el envío del formulario
+            respuesta.innerHTML = '<p class="success">✅ ¡Mensaje enviado correctamente! Nos pondremos en contacto pronto.</p>';
+            
+            // Limpia el formulario
+            document.getElementById("contactForm").reset();
+        });
+    </script>
+
+</body>
+</html>
+{% endblock %}

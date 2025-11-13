@@ -1,0 +1,35 @@
+{% extends 'store/base.html' %}
+
+{% block title %}Login| {% endblock %}
+
+{% block content %}
+
+<div class="row p-4">
+    <div class="col-6 bg-light p-4">
+        <h4 class="mb-6 text-center">Registro</h4>
+        <hr>
+        <form action="." method="POST">
+            {% csrf_token %}
+            <div class="form-floating mb-3">
+                <h6>Username:</h6>
+                {{form.username}}
+            </div>
+            <div class="form-floating mb-3">
+                <h6>Password:</h6>
+                {{form.password}}
+            </div>
+        </form>
+    </div>
+    {% if form.errors or form.non_field_errors %}
+    <div class="mb-4 p-6 bg-danger">
+        {% for field in form %}
+            fiels.errors
+        {% endfor %}
+        {{ form.non_field_errors }}
+    </div>
+    {% endif %}
+</div>
+<button class="btn btn-primary mb-6">Login</button>
+
+
+{% endblock %}
